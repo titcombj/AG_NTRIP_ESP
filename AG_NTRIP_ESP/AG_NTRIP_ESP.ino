@@ -1,3 +1,5 @@
+#include <dummy.h>
+
 TaskHandle_t Core1;
 TaskHandle_t Core2;
 // ESP32 Ntrip Client by Coffeetrac
@@ -49,7 +51,7 @@ struct Storage{
 //##########################################################################################################
 
 boolean debugmode = false;
-#define useBluetooth  1  // 1= possibility to use bluetooth to transfer data to AOG later on, but needs lots of memory.
+#define useBluetooth  0  // 1= possibility to use bluetooth to transfer data to AOG later on, but needs lots of memory.
 
 // IO pins --------------------------------
 #define RX0      3
@@ -78,9 +80,9 @@ boolean debugmode = false;
 #include <base64.h>
 #include "Network_AOG.h"
 #include "EEPROM.h"
-#include "BNO_ESP.h"
+//#include "BNO_ESP.h"
 #include "MMA8452_AOG.h"
-#include "BluetoothSerial.h"
+//#include "BluetoothSerial.h"
 
 // Declarations
 void DBG(String out, byte nl = 0);
@@ -126,10 +128,10 @@ unsigned int currentTime = LOOP_TIME;
 unsigned int dT = 50000;
 
 //Kalman variables
-float rollK = 0, Pc = 0.0, G = 0.0, P = 1.0, Xp = 0.0, Zp = 0.0;
-float XeRoll = 0;
-const float varRoll = 0.1; // variance,
-const float varProcess = 0.0055; //0,00025 smaller is more filtering
+//float rollK = 0, Pc = 0.0, G = 0.0, P = 1.0, Xp = 0.0, Zp = 0.0;
+//float XeRoll = 0;
+//const float varRoll = 0.1; // variance,
+//const float varProcess = 0.0055; //0,00025 smaller is more filtering
 
 // GPS-Bridge
 int cnt=0;
@@ -142,15 +144,8 @@ char lastSentence[100]="";
 
 char strmBuf[512];         // rtcm Message Buffer
 
- //IMU, inclinometer variables
-  bool imu_initialized = 0;
-  int16_t roll = 0, roll_corr = 0;
-  uint16_t x_ , y_ , z_;
-
 //Array to send data back to AgOpenGPS
 byte GPStoSend[100]; 
-byte IMUtoSend[] = {0x7F,0xEE,0,0,0,0,0,0,0,0};
-byte IMUtoSendLenght = 10; //lenght of array to AOG
 
 // Instances ------------------------------
 MMA8452 accelerometer;
@@ -169,7 +164,7 @@ void setup() {
   pinMode(restoreDefault_PIN, INPUT);  //
   
   restoreEEprom();
-  Wire.begin(SDA, SCL, 400000);
+//  Wire.begin(SDA, SCL, 400000);
 
   //  Serial1.begin (NtripSettings.baudOut, SERIAL_8N1, RX1, TX1); 
   if (debugmode) { Serial1.begin(115200, SERIAL_8N1, RX1, TX1); } //set new Baudrate

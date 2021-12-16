@@ -81,7 +81,7 @@ boolean debugmode = false;
 #include "Network_AOG.h"
 #include "EEPROM.h"
 //#include "BNO_ESP.h"
-#include "MMA8452_AOG.h"
+//#include "MMA8452_AOG.h"
 //#include "BluetoothSerial.h"
 
 // Declarations
@@ -148,7 +148,7 @@ char strmBuf[512];         // rtcm Message Buffer
 byte GPStoSend[100]; 
 
 // Instances ------------------------------
-MMA8452 accelerometer;
+//MMA8452 accelerometer;
 WiFiServer server(80);
 WiFiClient ntripCl;
 WiFiClient client_page;

@@ -201,12 +201,12 @@ bool getRtcmData(){
    //while(ntripCl.available()) {
       char a = ntripCl.read();
       Serial1.print(a);
-      if (NtripSettings.sendGGAsentence > 0){
-        if (millis() - repeatGGA > (NtripSettings.GGAfreq * 1000)) {
-          sendGGA(); //
-          repeatGGA = millis();
-        }
-      }
+      // if (NtripSettings.sendGGAsentence > 0){
+      //   if (millis() - repeatGGA > (NtripSettings.GGAfreq * 1000)) {
+      //     sendGGA(); //
+      //     repeatGGA = millis();
+      //   }
+      // }
       if (millis() - lifesign > 1000) {
         DBG("*"); // Sectic - Data receiving
         if(cnt++ >=59) {

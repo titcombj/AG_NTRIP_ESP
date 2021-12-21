@@ -16,11 +16,11 @@ struct Storage{
   unsigned long timeoutRouter = 65;           // Time (seconds) to wait for WIFI access, after that own Access Point starts 
 
   // Ntrip Caster Data
-  char host[40]        = "195.200.70.200";    // Server IP
+  char host[40]        = "192.168.0.149";    // Server IP
   int  port            = 2101;                // Server Port
-  char mountpoint[40]  = "FPS_BY_RTCM3_3G";   // Mountpoint
-  char ntripUser[40]   = "NTRIPUsername";     // Username
-  char ntripPassword[40]= "NTRIPPassword";    // Password
+  char mountpoint[40]  = "POD0";   // Mountpoint
+  char ntripUser[40]   = "test";     // Username
+  char ntripPassword[40]= "test";    // Password
 
   byte sendGGAsentence = 0; // 0 = No Sentence will be sended
                             // 1 = fixed Sentence from GGAsentence below will be sended
@@ -36,7 +36,7 @@ struct Storage{
                             // 1 = Transmission of NMEA Sentences to AOG via Ethernet-UDP
                             // 2 = Bluetooth attention: not possible if line useBluetooth = false
 
-  byte enableNtrip   = 0;   // 0 = NTRIP disabled
+  byte enableNtrip   = 1;   // 0 = NTRIP disabled
                             // 1 = ESP NTRIP Client enabled
                             // 2 = AOG NTRIP Client enabled (Port=2233)
   
@@ -92,8 +92,8 @@ const char* ssid_ap     = "NTRIP_Client_ESP_Net";
 const char* password_ap = "";
 
 //static IP
-IPAddress myip(192, 168, 1, 79);  // Roofcontrol module
-IPAddress gwip(192, 168, 1, 1);   // Gateway & Accesspoint IP
+IPAddress myip(192, 168, 0, 79);  // Roofcontrol module
+IPAddress gwip(192, 168, 0, 1);   // Gateway & Accesspoint IP
 IPAddress mask(255, 255, 255, 0);
 IPAddress myDNS(8, 8, 8, 8);      //optional
 
@@ -102,7 +102,7 @@ unsigned int portAOG = 8888;      // port to listen for AOG
 unsigned int portMyNtrip = 2233;
 
 //IP address to send UDP data to:
-IPAddress ipDestination(192, 168, 1, 255);
+IPAddress ipDestination(192, 168, 0, 255);
 unsigned int portDestination = 9999;  // Port of AOG that listens
 
 // Variables ------------------------------
@@ -127,19 +127,12 @@ unsigned int lastTime = LOOP_TIME;
 unsigned int currentTime = LOOP_TIME;
 unsigned int dT = 50000;
 
-//Kalman variables
-//float rollK = 0, Pc = 0.0, G = 0.0, P = 1.0, Xp = 0.0, Zp = 0.0;
-//float XeRoll = 0;
-//const float varRoll = 0.1; // variance,
-//const float varProcess = 0.0055; //0,00025 smaller is more filtering
 
 // GPS-Bridge
 int cnt=0;
 int i=0;  
 byte gpsBuffer[100], c;
-char imuBuffer[20];
 bool newSentence = false;
-bool newIMUSentence = false;
 char lastSentence[100]="";
 
 char strmBuf[512];         // rtcm Message Buffer
@@ -167,9 +160,9 @@ void setup() {
 //  Wire.begin(SDA, SCL, 400000);
 
   //  Serial1.begin (NtripSettings.baudOut, SERIAL_8N1, RX1, TX1); 
-  if (debugmode) { Serial1.begin(115200, SERIAL_8N1, RX1, TX1); } //set new Baudrate
+  if (debugmode) { Serial1.begin(38400, SERIAL_8N1, RX1, TX1); } //set new Baudrate
   else { Serial1.begin(NtripSettings.baudOut, SERIAL_8N1, RX1, TX1); } //set new Baudrate
-  Serial2.begin(115200,SERIAL_8N1,RX2,TX2); 
+  Serial2.begin(NtripSettings.baudOut,SERIAL_8N1,RX2,TX2); 
 
   Serial.begin(115200);
  #if (useBluetooth)

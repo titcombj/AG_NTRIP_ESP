@@ -192,6 +192,7 @@ bool getRtcmData(){
    
    // Read all the bytes of the reply from server and print them to Serial
    while(ntripCl.available()&& NtripSettings.enableNtrip == 1) {
+   //while(ntripCl.available()) {
       char a = ntripCl.read();
       Serial1.print(a);
       if (NtripSettings.sendGGAsentence > 0){

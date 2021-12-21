@@ -5,16 +5,18 @@ void Core1code( void * pvParameters ){
   DBG("\nTask1 running on core ");
   DBG((int)xPortGetCoreID(),1);
 
-
+//JTI- Read the stored settings 
   while (!EE_done){  // wait for eeprom data
      delay(10);
    }
 
+// JTI - Wait for core to set up the WiFi
   while (my_WiFi_Mode != WIFI_STA){
      DBG("Waiting for WiFi Access\n");
      delay(5000);
    }
 
+// JTI - Initialise timers
   lifesign  = millis();  //init timers 
   repeatGGA = millis();  // 
 

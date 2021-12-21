@@ -149,9 +149,6 @@ WiFiClient client_page;
 AsyncUDP udpRoof;
 //JTI- udpNtrip is where we get the Ntrip data from. This is the caster on the BasePod
 AsyncUDP udpNtrip;
-#if (useBluetooth)
-BluetoothSerial SerialBT;
-#endif
 
 
 // Setup procedure ------------------------

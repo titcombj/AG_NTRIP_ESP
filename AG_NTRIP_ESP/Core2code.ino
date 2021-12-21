@@ -13,18 +13,8 @@ void Core2code( void * pvParameters ){
  WiFi_Start_STA();
  if (my_WiFi_Mode == 0) WiFi_Start_AP(); // if failed start AP
 
- repeat_ser = millis();
-  if ((NtripSettings.AHRSbyte == 1)|(NtripSettings.AHRSbyte == 3)) {   // Initialize the BNO055 if not done
-//	 if (imu_initialized == 0) {
-//		 initBNO055();
-//		 imu_initialized = 1;
-//	 }
-//	 else {		//  no IMU
-//		 imu_initialized = 0;
-//		 Head = 0;
-//		 Yaw = 0;
-//	 }
-  }
+ repeat_ser = millis(); 
+ 
   udpRoof.listen(portMy);
   UDPReceiveNtrip();
   

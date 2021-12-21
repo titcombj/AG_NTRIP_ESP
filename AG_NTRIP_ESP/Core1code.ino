@@ -25,16 +25,20 @@ void Core1code( void * pvParameters ){
 
 for(;;){ // MAIN LOOP FOR THIS CORE
   
-   
-  if (NtripSettings.enableNtrip==1 && my_WiFi_Mode == WIFI_STA){
+  // JTI - check if the wifi is connected
+  if (my_WiFi_Mode == WIFI_STA){
+     // JTI - we are not connected to a stream so we need to start it. 
      if (restart == 0){
         DBG("\nRequesting Sourcetable:\n\n");
+        // JTI - Our application is allways going to connect to POD0 so we don't really need to get the source table 
+        // but let's leave it in just in for debuging
         if(!getSourcetable()) DBG("SourceTable request error !!\n");
         DBG("try starting RTCM stream !!!!!\n");
         if (!startStream()) DBG("Stream request error\n");
         DBG("RTCM stream started at serial1 (* = RTCM-Package,  G = GGA-sent)\n");
         restart = 1;
-      }     
+      }  
+     //    
      if (!getRtcmData()){
         //DBG("\nstopped receiving data \n");
         DBG("\nCan not reach hoster, internet connection broken\n");

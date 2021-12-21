@@ -553,9 +553,6 @@ void make_HTML01() {
   }
   strcat( HTML_String, "<tr> <td colspan=\"3\">&nbsp;</td> </tr>");
 
-  #if (!useBluetooth)
-    if (NtripSettings.send_UDP_AOG == 2) NtripSettings.send_UDP_AOG =0;
-  #endif
   for (int i = 0; i < 3; i++) {
     strcat( HTML_String, "<tr>");
     if (i == 0)  strcat( HTML_String, "<td><b>Transmission Mode</b></td>");
@@ -566,16 +563,10 @@ void make_HTML01() {
     strcati( HTML_String, i);
     strcat( HTML_String, "\"");
     if (NtripSettings.send_UDP_AOG == i)strcat( HTML_String, " CHECKED");
-    #if (!useBluetooth)
-      if ( i == 2) strcat( HTML_String, " disabled"); //if BT is Disabled by code
-    #endif
     strcat( HTML_String, "><label for=\"JZ");
     strcati( HTML_String, i);
     strcat( HTML_String, "\">");
     strcat( HTML_String, sendNmea[i]);
-    #if (!useBluetooth)
-      if ( i == 2) strcat( HTML_String, " (disabled by code)"); //if BT is Disabled by code
-    #endif
     strcat( HTML_String, "</label></td>");
     
   }

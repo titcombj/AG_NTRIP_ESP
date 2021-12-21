@@ -34,7 +34,6 @@ struct Storage{
 
   byte send_UDP_AOG  = 0;   // 0 = Transmission of NMEA Off
                             // 1 = Transmission of NMEA Sentences to AOG via Ethernet-UDP
-                            // 2 = Bluetooth attention: not possible if line useBluetooth = false
 
   byte enableNtrip   = 1;   // 0 = NTRIP disabled
                             // 1 = ESP NTRIP Client enabled
@@ -51,7 +50,6 @@ struct Storage{
 //##########################################################################################################
 
 boolean debugmode = false;
-#define useBluetooth  0  // 1= possibility to use bluetooth to transfer data to AOG later on, but needs lots of memory.
 
 // IO pins --------------------------------
 #define RX0      3
@@ -82,7 +80,6 @@ boolean debugmode = false;
 #include "EEPROM.h"
 //#include "BNO_ESP.h"
 //#include "MMA8452_AOG.h"
-//#include "BluetoothSerial.h"
 
 // Declarations
 void DBG(String out, byte nl = 0);
@@ -149,9 +146,6 @@ WiFiClient client_page;
 AsyncUDP udpRoof;
 //JTI- udpNtrip is where we get the Ntrip data from. This is the caster on the BasePod
 AsyncUDP udpNtrip;
-#if (useBluetooth)
-BluetoothSerial SerialBT;
-#endif
 
 
 // Setup procedure ------------------------
@@ -167,11 +161,6 @@ void setup() {
   Serial2.begin(NtripSettings.baudOut,SERIAL_8N1,RX2,TX2); 
 
   Serial.begin(115200);
- #if (useBluetooth)
-     if(!SerialBT.begin("BT_GPS_ESP")){
-      DBG("\nAn error occurred initializing Bluetooth\n");
-     }
- #endif
 
  pinMode(LED_PIN_WIFI, OUTPUT);
    

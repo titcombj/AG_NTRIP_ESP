@@ -41,7 +41,7 @@ char repeatPos[3][8] = {"1 sec.", "5 sec.", "10 sec."};
 char baud_output[6][7] = {"  9600", " 14400", " 19200", " 38400", " 57600", "115200"};
 
 // Radiobutton Select if NMEA are transmitted via UDP.
-char sendNmea[3][10] = {"OFF", "AOG-UDP", "Bluetooth"};
+char sendNmea[2][10] = {"OFF", "AOG-UDP"};
 
 // Radiobutton Select if NTRIP Client is enabled. (Off to use only NMEA Transmission to AOG)
 char ntripOn_type[3][9] = {"OFF", "ESP-WiFi", "AOG-UDP"};

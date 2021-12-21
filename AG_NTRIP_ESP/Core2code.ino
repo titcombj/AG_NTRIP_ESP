@@ -13,8 +13,8 @@ void Core2code( void * pvParameters ){
  WiFi_Start_STA();
  if (my_WiFi_Mode == 0) WiFi_Start_AP(); // if failed start AP
 
- repeat_ser = millis(); 
- 
+ repeat_ser = millis();
+
   udpRoof.listen(portMy);
   UDPReceiveNtrip();
   
@@ -168,12 +168,7 @@ while (Serial1.available())
               case 1:
                  udpRoof.writeTo(gpsBuffer, i, ipDestination, portDestination );    
                break;
-              case 2:
-              #if (useBluetooth)
-                 for (byte n = 0; n < i; n++){  //print gpsBuffer to Bluetooth
-                    SerialBT.print((char)gpsBuffer[n]);
-                  }
-              #endif                
+              case 2:          
               break;
             }          
                

@@ -135,16 +135,19 @@ void udpNtripRecv()
    {Serial.print("."); 
     for (int i = 0; i < packet.length(); i++) 
         {
-          if(NtripSettings.enableNtrip == 2) {
+          //JTI- We just want to forward all Ntrip data all the time in our application
+
+          //if(NtripSettings.enableNtrip == 2) {
             //Serial.print(packet.data()[i],HEX); 
-            Serial1.write(packet.data()[i]); 
-          }
+          Serial1.write(packet.data()[i]); 
+          //}
         }
    });  // end of onPacket call
 }
 
 //------------------------------------------------------------------------------------------
 //Read serial GPS data
+//This is where we need to deal with our pod data 
 //-------------------------------------------------------------------------------------------
 void Serial_Traffic(){
 

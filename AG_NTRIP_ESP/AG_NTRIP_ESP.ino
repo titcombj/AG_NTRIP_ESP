@@ -145,7 +145,9 @@ byte GPStoSend[100];
 WiFiServer server(80);
 WiFiClient ntripCl;
 WiFiClient client_page;
+//JTI- udpRoof is for sending the GPS data to. In our case this needs to be the relative to the BasePod
 AsyncUDP udpRoof;
+//JTI- udpNtrip is where we get the Ntrip data from. This is the caster on the BasePod
 AsyncUDP udpNtrip;
 #if (useBluetooth)
 BluetoothSerial SerialBT;
